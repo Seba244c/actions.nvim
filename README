@@ -1,0 +1,12 @@
+# Actions
+
+A blazingly fast neovim plugin, that allows for the creation of per project
+actions.
+
+## Installation
+
+1. Use your favorite Vim or Neovim plugin manager to add Example Plugin. With [packer](https://github.com/wbthomason/packer.nvim), just add this line to your plugin configuration: `use 'Seba244c/actions.nvim'`.
+
+## Usage
+
+
