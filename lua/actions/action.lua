@@ -60,18 +60,12 @@ function M.action()
         vim.api.nvim_command("w")
 
         -- Parse Actions
-        local actions = vim.fn.json_decode(vim.fn.getbufline(Actions_bufnr, 5))
+        local buf_info = vim.fn.getbufinfo(Actions_bufnr)[1]
+        local actions = vim.fn.json_decode(vim.fn.getbufline(Actions_bufnr, 5, buf_info.linecount))
         local action = actions[action]
         utils.hide()
 
         -- Handle action
-        -- Checks
-        if not action.name then
-            print("action.name must be string")
-            return
-        end
-
-        -- Handle Action
         if action.type == "cmd" then
             M.cmd(action.cmd)
         else
