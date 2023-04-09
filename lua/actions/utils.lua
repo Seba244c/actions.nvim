@@ -10,35 +10,34 @@ function utils.actions_file_path()
 end
 
 function utils.round(float)
-  return math.floor(float + .5)
+    return math.floor(float + .5)
 end
 
-
 function utils.window_config(width, height)
-  if vim.api.nvim_call_function('has', {'nvim-0.5.0'}) == 1 then
-    local border = vim.g.workbench_border or "double"
+    if vim.api.nvim_call_function('has', { 'nvim-0.5.0' }) == 1 then
+        local border = vim.g.workbench_border or "double"
 
-    return {
-      relative = "editor",
-      width = width,
-      height = height,
-      col = (ui.width - width) / 2,
-      row = (ui.height - height) / 2,
-      style = 'minimal',
-      focusable = false,
-      border = border
-    }
-  else
-    return {
-      relative = "editor",
-      width = width,
-      height = height,
-      col = (ui.width - width) / 2,
-      row = (ui.height - height) / 2,
-      style = 'minimal',
-      focusable = false,
-    }
-  end
+        return {
+            relative = "editor",
+            width = width,
+            height = height,
+            col = (ui.width - width) / 2,
+            row = (ui.height - height) / 2,
+            style = 'minimal',
+            focusable = false,
+            border = border
+        }
+    else
+        return {
+            relative = "editor",
+            width = width,
+            height = height,
+            col = (ui.width - width) / 2,
+            row = (ui.height - height) / 2,
+            style = 'minimal',
+            focusable = false,
+        }
+    end
 end
 
 function utils.check_file()
@@ -54,14 +53,16 @@ function utils.check_file()
 end
 
 function utils.hide()
-  vim.api.nvim_command('close')
+    vim.api.nvim_command('bd!')
 end
 
-function utils.show_buffer(bufnr)
-  local width = utils.round(ui.width * 0.5)
-  local height = utils.round(ui.height * 0.5)
+function utils.show_buffer(bufnr, close_function)
+    local width = utils.round(ui.width * 0.5)
+    local height = utils.round(ui.height * 0.5)
 
-  vim.api.nvim_open_win(bufnr, true, utils.window_config(width, height))
+    vim.api.nvim_open_win(bufnr, true, utils.window_config(width, height))
+    vim.keymap.set("n", "<CR>", close_function, { buffer = bufnr })
+    vim.keymap.set("i", "<CR>", close_function, { buffer = bufnr })
 end
 
 function utils.is_git_repo()

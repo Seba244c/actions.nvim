@@ -24,9 +24,15 @@ local function init()
 end
 
 function M.cmd(cmd)
+    vim.api.nvim_command("stopinsert")
     local Terminal = require('toggleterm.terminal').Terminal
-    local term     = Terminal:new({ cmd = cmd, close_on_exit = true, hidden = true })
-    term:toggle()
+    local term = Terminal:new({
+        cmd = cmd,
+        hidden = true,
+        close_on_exit = true,
+    })
+    term:toggle();
+    term:focus();
 end
 
 function M.action()
@@ -75,7 +81,7 @@ function M.action()
         vim.api.nvim_set_current_win(buf_info.windows[1])
         vim.api.nvim_command("startinsert")
     else
-        utils.show_buffer(Actions_bufnr)
+        utils.show_buffer(Actions_bufnr, M.action)
         vim.api.nvim_command("startinsert")
     end
 end
