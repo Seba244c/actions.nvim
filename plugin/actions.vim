@@ -14,3 +14,7 @@ let g:loaded_actionsplugin = 1
 
 " Exposes the plugin's functions for use as commands in Neovim.
 command! -nargs=0 Action lua require("actions").action()
+
+
+" Disable highlighting for floating window
+hi NormalFloat guibg=none guifg=none

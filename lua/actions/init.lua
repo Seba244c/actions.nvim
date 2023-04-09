@@ -6,6 +6,10 @@ local action = require("actions.action")
 -- returned when the module is called with `require`.
 local M = {}
 
+function M.bind(mode, key)
+    vim.keymap.set(mode, key, action.action)
+end
+
 -- Routes calls made to this module to functions in the
 -- plugin's other modules.
 M.action = action.action
